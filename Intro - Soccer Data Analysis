@@ -84,3 +84,27 @@ df2 = pd.DataFrame({'attributes': cols, 'correlation': correlations})
 
 #plotar através da função que criamos
 plot_dataframe(df2, 'Avaliação Geral dos Jogadores')
+
+#definir as caracteristicas para agrupar os jogadores
+
+select5features  = ['gk_kicking','potential','marking','interceptions','standing_tackle']
+select5features
+
+#gerar um novo dataframe
+df_select = df[select5features].copy(deep=True)
+df_select.head()
+
+data = scale(df_select)
+
+#definir o número de clusters
+clusters = 4
+
+#treinar o modelo
+model = KMeans(init='k-means++', n_clusters=clusters, n_init=20).fit(data)
+
+print (90*'_')
+print ("\nCount of Players in each cluster")
+print (90*'_')
+
+pd.value_counts(model.labels_, sort = False)
+
